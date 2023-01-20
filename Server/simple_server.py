@@ -12,27 +12,14 @@ class myHandler(BaseHTTPRequestHandler):
 	#Handler for the GET requests
 	def do_GET(self):
 		try:
-			if "clear.sample.txt" in self.path:
-				import os
-				os.remove('sample.txt')
-				open('clear.sample.txt', 'a')
-		except:
-			pass
-
-		file_object = open('sample.txt', 'a')
-
-		try:
 			if 'health' in self.path:
 				self.send_response(200)
 				self.send_header('Content-type','text/html')
-				self.wfile.write('OK')
 				self.end_headers()
 				return
 
 		except Exception as e:
 			print("failed to fetch header" + str(e))
-
-		file_object.close()
 
 		if self.path=="/":
 			self.path="/index_example2.html"
