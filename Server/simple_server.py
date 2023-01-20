@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir, sep
 
@@ -21,6 +22,12 @@ class myHandler(BaseHTTPRequestHandler):
 		file_object = open('sample.txt', 'a')
 
 		try:
+			if 'health' in self.path:
+				self.send_response(200)
+				self.send_header('Content-type',mimetype)
+				self.end_headers()
+				return
+				
 			if "sample.txt" not in self.path:
 				file_object.write("\n" + str(self.headers["User-Agent"]))
 				
