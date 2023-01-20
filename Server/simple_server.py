@@ -27,31 +27,7 @@ class myHandler(BaseHTTPRequestHandler):
 				self.send_header('Content-type',mimetype)
 				self.end_headers()
 				return
-				
-			if "sample.txt" not in self.path:
-				file_object.write("\n" + str(self.headers["User-Agent"]))
-				
-				#if 'Android' in self.headers["User-Agent"]:
-				#		pass
-				#else:
-				#	self.send_error(404,'File Not Found: %s' % self.path)
-				#	return
 
-				try:
-					file_object.write("\n" + str(self.headers["Sec-Ch-Ua-Platform"]))
-				except:
-					pass
-
-				try:
-					file_object.write("\n" + str(self.headers["Referer"]))
-				except:
-					pass
-
-				file_object.write('                                                                                                                                                                                                                                ')
-				print("\nNew connection!!!!")
-				print("User-Agent: " + self.headers["User-Agent"])
-				print("Platform: " + self.headers["Sec-Ch-Ua-Platform"])
-				print("Referer: " + self.headers["Referer"])
 		except Exception as e:
 			print("failed to fetch header" + str(e))
 
@@ -65,32 +41,8 @@ class myHandler(BaseHTTPRequestHandler):
 			#set the right mime type
 
 			sendReply = False
-			if self.path.endswith(".html") or self.path.endswith(".txt"):
+			if self.path.endswith(".html") or self.path.endswith(".txt") or self.path.endswith(".py"):
 				mimetype='text/html'
-				sendReply = True
-			if self.path.endswith(".jpg"):
-				mimetype='image/jpg'
-				sendReply = True
-			if self.path.endswith(".jpeg"):
-				#mimetype='image/jpeg'
-				#sendReply = True
-				mimetype='application/x-tgsticker'
-				sendReply = True
-			if self.path.endswith(".gif"):
-				mimetype='image/gif'
-				sendReply = True
-			if self.path.endswith(".js"):
-				mimetype='application/javascript'
-				sendReply = True
-			if self.path.endswith(".css"):
-				mimetype='text/css'
-				sendReply = True
-			if self.path.endswith(".mp4"):
-				#mimetype='video/mp4'
-				mimetype='application/x-tgsticker'
-				sendReply = True
-			if self.path.endswith(".tgs"):
-				mimetype='application/x-tgsticker'
 				sendReply = True
 
 			if sendReply == True:
