@@ -40,21 +40,13 @@ class myHandler(BaseHTTPRequestHandler):
 			#Check the file extension required and
 			#set the right mime type
 
-			sendReply = False
-			if self.path.endswith(".html") or self.path.endswith(".txt") or self.path.endswith(".py"):
-				mimetype='text/html'
-				sendReply = True
-
-			if sendReply == True:
-				#Open the static file requested and send it
-				f = open(curdir + sep + self.path, "rb") 
-				self.send_response(200)
-				self.send_header('Content-type',mimetype)
-				self.end_headers()
-				self.wfile.write(f.read())
-				f.close()
-			return
-
+			#Open the static file requested and send it
+			f = open(curdir + sep + self.path, "rb") 
+			self.send_response(200)
+			self.send_header('Content-type', 'text/html')
+			self.end_headers()
+			self.wfile.write(f.read())
+			f.close()
 
 		except IOError:
 			self.send_error(404,'File Not Found: %s' % self.path)
