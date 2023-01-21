@@ -5,6 +5,7 @@ from os import curdir, sep
 from urllib.parse import parse_qs
 from cgi import parse_header, parse_multipart
 import json
+import time
 
 
 PORT_NUMBER = 8080
@@ -57,6 +58,9 @@ class myHandler(BaseHTTPRequestHandler):
 		for pair in splitted:
 			ss = pair.split('=')
 			mappy[ss[0]] = ss[1]
+
+		mappy[current_time] = time.strftime("%H:%M:%S", time.localtime())
+
 		return mappy
 		
 	def do_POST(self):
