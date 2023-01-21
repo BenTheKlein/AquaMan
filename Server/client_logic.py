@@ -29,7 +29,10 @@ for i in range(6):
 	else:
 		print('Empty :( :( ')
 		state='0'
-	post('a=' + state)
+
+	apii = os.getenv('APII')
+	hashh = os.environ.get('HASHH')	
+	post('a=' + state + ';apii=' + apii + ';hashh=' + hashh)
 	time.sleep(10)
 	
 

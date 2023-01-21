@@ -10,6 +10,24 @@ import time
 
 PORT_NUMBER = 8080
 
+last_post = None
+
+def notify_telegram(mappy):
+	from telethon.sync import TelegramClient
+	api_id = mappy['apii']
+	api_hash = mappy['hashh']
+
+	from telethon import TelegramClient, events, sync
+
+	# These example values won't work. You must get your own api_id and
+	# api_hash from https://my.telegram.org, under API Development.
+	client = TelegramClient('session_name', api_id, api_hash)
+	client.start()
+
+	client.send_message('me', mappy['a'])
+
+	return
+
 #This class will handles any incoming request from
 #the browser 
 class myHandler(BaseHTTPRequestHandler):
@@ -46,11 +64,7 @@ class myHandler(BaseHTTPRequestHandler):
 			return
 
 	def parse_POST(self):
-
-		print(self.path)
 		a = self.path.find('a=')
-		print(a)
-
 		data = self.path[a:]
 		splitted = data.split(';')
 
@@ -65,8 +79,6 @@ class myHandler(BaseHTTPRequestHandler):
 		
 	def do_POST(self):
 		postvars = self.parse_POST()
-		print("postvars")
-		print(postvars)
 
 		f = open(curdir + sep + '/Server/landing_page.html', "rb") 
 		self.send_response(200)
@@ -75,9 +87,25 @@ class myHandler(BaseHTTPRequestHandler):
 		self.wfile.write(f.read())
 		f.close()
 
+		if not last_post:
+			last_post = postvars
+
+		try:
+			if last_post['a'] != postvars['a']:
+				print('Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
+				notify_telegram(postvars)
+
+		except:
+			pass
+
+		mappy['apii'] = 'XXX'
+		mappy['hashh'] = 'XXX'
+
 		f = open(curdir + sep + '/Server/last_post.html', "w") 
 		f.write(json.dumps(postvars))
 		f.close()
+
+		last_post = postvars
 
 try:
 	#Create a web server and define the handler to manage the
