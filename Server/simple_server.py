@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from os import curdir, sep
+from os import curdir, sep    
+from urllib.parse import parse_qs
+from cgi import parse_header, parse_multipart
+import json
+
 
 PORT_NUMBER = 8080
 
@@ -22,7 +26,7 @@ class myHandler(BaseHTTPRequestHandler):
 			print("failed to fetch header" + str(e))
 
 		if self.path=="/":
-			self.path="/index_example2.html"
+			self.path="/landing_page.html"
 
 		try:
 			#Check the file extension required and
@@ -38,6 +42,38 @@ class myHandler(BaseHTTPRequestHandler):
 
 		except IOError:
 			self.send_error(404,'File Not Found: %s' % self.path)
+			return
+
+	def parse_POST(self):
+
+		print(self.path)
+		a = self.path.find('a=')
+		print(a)
+
+		data = self.path[a:]
+		splitted = data.split(';')
+
+		mappy = {}
+		for pair in splitted:
+			ss = pair.split('=')
+			mappy[ss[0]] = ss[1]
+		return mappy
+		
+	def do_POST(self):
+		postvars = self.parse_POST()
+		print("postvars")
+		print(postvars)
+
+		f = open(curdir + sep + '/landing_page.html', "rb") 
+		self.send_response(200)
+		self.send_header('Content-type', 'text/html')
+		self.end_headers()
+		self.wfile.write(f.read())
+		f.close()
+
+		f = open(curdir + sep + '/last_post.html', "w") 
+		f.write(json.dumps(postvars))
+		f.close()
 
 try:
 	#Create a web server and define the handler to manage the
