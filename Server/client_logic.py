@@ -10,10 +10,9 @@ import requests
 def post(data):
 	url = 'https://aquaman.onrender.com/' + data
 	myobj = {'somekey': 'somevalue'}
+	print('url: ' + url)
 
 	x = requests.post(url, json = myobj)
-
-	print(x.text)
 
 import RPi.GPIO as GPIO
 import time
