@@ -59,7 +59,7 @@ class myHandler(BaseHTTPRequestHandler):
 			ss = pair.split('=')
 			mappy[ss[0]] = ss[1]
 
-		mappy[current_time] = time.strftime("%H:%M:%S", time.localtime())
+		mappy['current_time'] = time.strftime("%H:%M:%S", time.localtime())
 
 		return mappy
 		
