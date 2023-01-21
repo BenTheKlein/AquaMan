@@ -26,7 +26,7 @@ class myHandler(BaseHTTPRequestHandler):
 			print("failed to fetch header" + str(e))
 
 		if self.path=="/":
-			self.path="/landing_page.html"
+			self.path="/Server/landing_page.html"
 
 		try:
 			#Check the file extension required and
@@ -64,14 +64,14 @@ class myHandler(BaseHTTPRequestHandler):
 		print("postvars")
 		print(postvars)
 
-		f = open(curdir + sep + '/landing_page.html', "rb") 
+		f = open(curdir + sep + '/Server/landing_page.html', "rb") 
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html')
 		self.end_headers()
 		self.wfile.write(f.read())
 		f.close()
 
-		f = open(curdir + sep + '/last_post.html', "w") 
+		f = open(curdir + sep + '/Server/last_post.html', "w") 
 		f.write(json.dumps(postvars))
 		f.close()
 
