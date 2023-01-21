@@ -8,7 +8,7 @@ print('client logic starting')
 import requests
 
 def post(data):
-	URL = 'https://aquaman.onrender.com/' + data
+	url = 'https://aquaman.onrender.com/' + data
 	myobj = {'somekey': 'somevalue'}
 
 	x = requests.post(url, json = myobj)
