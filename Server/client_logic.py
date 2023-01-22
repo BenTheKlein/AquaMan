@@ -12,7 +12,7 @@ def post(data):
 	myobj = {'somekey': 'somevalue'}
 	print('url: ' + url)
 
-	x = requests.post(url, json = myobj)
+	#x = requests.post(url, json = myobj)
 
 import RPi.GPIO as GPIO
 import time
