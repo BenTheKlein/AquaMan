@@ -79,14 +79,21 @@ class myHandler(BaseHTTPRequestHandler):
 		return mappy
 		
 	def do_POST(self):
+		global last_post
+
 		postvars = self.parse_POST()
 
-		f = open(curdir + sep + '/Server/landing_page.html', "rb") 
-		self.send_response(200)
-		self.send_header('Content-type', 'text/html')
-		self.end_headers()
-		self.wfile.write(f.read())
-		f.close()
+		try:
+			f = open(curdir + sep + '/Server/landing_page.html', "rb") 
+			self.send_response(200)
+			self.send_header('Content-type', 'text/html')
+			self.end_headers()
+			self.wfile.write(f.read())
+			f.close()
+		except Exception as e:
+			self.send_response(200)
+			self.send_header('Content-type', 'text/html')
+			self.end_headers()
 
 		if not last_post:
 			last_post = postvars
@@ -100,8 +107,8 @@ class myHandler(BaseHTTPRequestHandler):
 		except:
 			pass
 
-		mappy['apii'] = 'XXX'
-		mappy['hashh'] = 'XXX'
+		postvars['apii'] = 'XXX'
+		postvars['hashh'] = 'XXX'
 
 		f = open(curdir + sep + '/Server/last_post.html', "w") 
 		f.write(json.dumps(postvars))
