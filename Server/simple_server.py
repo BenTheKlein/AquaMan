@@ -7,29 +7,39 @@ from cgi import parse_header, parse_multipart
 import json
 import time
 
+import smtplib
+from email.mime.text import MIMEText
 
 PORT_NUMBER = 8080
 
 last_post = None
 
-def notify_telegram(mappy):
-	from telethon.sync import TelegramClient
-	api_id = mappy['apii']
-	api_hash = mappy['hashh']
+def notify_email(mappy):
 
-	from telethon import TelegramClient, events, sync
+	sender_email = mappy['EMAIL_SENDER']
+	sender_password = mappy['EMAIL_TOKEN']
+	recipient_email = mappy['EMAIL_REC']
 
-	# These example values won't work. You must get your own api_id and
-	# api_hash from https://my.telegram.org, under API Development.
-	client = TelegramClient('session_name', api_id, api_hash)
-	client.start()
-
-	client.send_message('me', mappy['a'])
+	subject = "AQUA NOTIFICATION IMPORTANT!!"
+	body = """
+		<html>
+		<body>
+		<p>This is an <b>HTML</b> email sent from Python using the Gmail SMTP server.</p>
+		</body>
+		</html>
+	"""
+	html_message = MIMEText(body, 'html')
+	html_message['Subject'] = subject
+	html_message['From'] = sender_email
+	html_message['To'] = recipient_email
+	server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+	server.login(sender_email, sender_password)
+	server.sendmail(sender_email, recipient_email, html_message.as_string())
+	server.quit()
 
 	return
 
-#This class will handles any incoming request from
-#the browser 
+
 class myHandler(BaseHTTPRequestHandler):
 	
 	#Handler for the GET requests
@@ -102,13 +112,13 @@ class myHandler(BaseHTTPRequestHandler):
 			print('TEMP:::::: Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
 			if last_post['a'] != postvars['a']:
 				print('Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
-				notify_telegram(postvars)
+				notify_email(postvars)
 
-		except:
+		except Exception as e:
+			print(e)
 			pass
 
-		postvars['apii'] = 'XXX'
-		postvars['hashh'] = 'XXX'
+		postvars['EMAIL_TOKEN'] = 'XXX'
 
 		f = open(curdir + sep + '/Server/last_post.html', "w") 
 		f.write(json.dumps(postvars))

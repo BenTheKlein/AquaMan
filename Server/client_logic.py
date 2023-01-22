@@ -12,7 +12,7 @@ def post(data):
 	myobj = {'somekey': 'somevalue'}
 	print('url: ' + url)
 
-	#x = requests.post(url, json = myobj)
+	x = requests.post(url, json = myobj)
 
 import RPi.GPIO as GPIO
 import time
@@ -30,9 +30,10 @@ for i in range(6):
 		print('Empty :( :( ')
 		state='0'
 
-	apii = os.getenv('APII')
-	hashh = os.environ.get('HASHH')	
-	post('a=' + state + ';apii=' + apii + ';hashh=' + hashh)
+	EMAIL_SENDER = os.getenv('EMAIL_SENDER')
+	EMAIL_REC = os.environ.get('EMAIL_REC')	
+	EMAIL_TOKEN = os.environ.get('EMAIL_TOKEN')	
+	post('a=' + state + ';EMAIL_SENDER=' + EMAIL_SENDER + ';EMAIL_REC=' + EMAIL_REC + ';EMAIL_TOKEN=' + EMAIL_TOKEN)
 	time.sleep(10)
 	
 
