@@ -71,6 +71,7 @@ class myHandler(BaseHTTPRequestHandler):
 		mappy = {}
 		for pair in splitted:
 			ss = pair.split('=')
+			print(ss[0])
 			mappy[ss[0]] = ss[1]
 
 		mappy['current_time'] = time.strftime("%H:%M:%S", time.localtime())
@@ -91,6 +92,7 @@ class myHandler(BaseHTTPRequestHandler):
 			last_post = postvars
 
 		try:
+			print('TEMP:::::: Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
 			if last_post['a'] != postvars['a']:
 				print('Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
 				notify_telegram(postvars)
