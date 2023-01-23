@@ -19,7 +19,8 @@ def notify_email(mappy):
 	sender_password = mappy['EMAIL_TOKEN']
 	recipient_email = mappy['EMAIL_REC']
 
-	subject = "AQUA NOTIFICATION IMPORTANT!!"
+
+	subject = "AQUA NOTIFICATION IMPORTANT!!" + time.strftime("%x, %X, %y, %Y")
 	body = """
 		<html>
 		<body>
@@ -27,6 +28,26 @@ def notify_email(mappy):
 		</body>
 		</html>
 	"""
+
+	if mappy['a'] == '0':
+		body = """
+		<html>
+			<body>
+				<p><b>LOW WATER LEVEL!</b></p>
+			</body>
+		</html>
+		"""
+
+	if mappy['a'] == '1':
+		body = """
+		<html>
+			<body>
+				<p><b>BACK TO NORMAL!</b></p>
+			</body>
+		</html>
+		"""
+
+
 	html_message = MIMEText(body, 'html')
 	html_message['Subject'] = subject
 	html_message['From'] = sender_email
