@@ -34,7 +34,7 @@ for i in range(6):
 	EMAIL_SENDER = os.getenv('EMAIL_SENDER')
 	EMAIL_REC = os.environ.get('EMAIL_REC')	
 	EMAIL_TOKEN = os.environ.get('EMAIL_TOKEN')	
-	post('a=' + state + ';EMAIL_SENDER=' + EMAIL_SENDER + ';EMAIL_REC=' + EMAIL_REC + ';EMAIL_TOKEN=' + EMAIL_TOKEN + ';current_time=' + time.strftime("%x, %X, %y, %Y"))
+	post('a=' + state + ';EMAIL_SENDER=' + EMAIL_SENDER + ';EMAIL_REC=' + EMAIL_REC + ';EMAIL_TOKEN=' + EMAIL_TOKEN + ';current_time=' + time.strftime("%x, %X, %y, %Y").replace(' ', ''))
 	time.sleep(10)
 	
 
