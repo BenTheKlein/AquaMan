@@ -7,6 +7,9 @@ import time
 
 URL = 'https://aquaman.onrender.com/Server/client_logic.py'
 
+f = open('/tmp/tmp.log', 'a')
+f.write('starting')
+
 import urllib.request
 while True:
 	try:
@@ -19,6 +22,7 @@ while True:
 		import subprocess
 		subprocess.run(["python3", "tmp.py"])
 	except Exception as e:
+		f.write(str(e))
 		print(e)
 		time.sleep(60)
 

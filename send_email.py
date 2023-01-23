@@ -1,8 +1,8 @@
 import smtplib
 from email.mime.text import MIMEText
 
-sender_email = "winery.solo@gmail.com"
-sender_password = "ססס"
+sender_email = "bens.reefreef@gmail.com"
+sender_password = "arapgdecqujmnbzb"
 recipient_email = "benk1510@gmail.com"
 subject = "AQUA NOTIFICATION IMPORTANT!!"
 body = """

@@ -6,6 +6,7 @@ print('client logic starting')
 #f.write('hahahah')
 #f.close()
 import requests
+import os
 
 def post(data):
 	url = 'https://aquaman.onrender.com/' + data

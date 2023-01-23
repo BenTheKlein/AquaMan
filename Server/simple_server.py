@@ -15,7 +15,6 @@ PORT_NUMBER = 8080
 last_post = None
 
 def notify_email(mappy):
-
 	sender_email = mappy['EMAIL_SENDER']
 	sender_password = mappy['EMAIL_TOKEN']
 	recipient_email = mappy['EMAIL_REC']
@@ -84,7 +83,7 @@ class myHandler(BaseHTTPRequestHandler):
 			print(ss[0])
 			mappy[ss[0]] = ss[1]
 
-		mappy['current_time'] = time.strftime("%H:%M:%S", time.localtime())
+		mappy['current_time'] = time.strftime("%x, %X, %y, %Y")
 
 		return mappy
 		
