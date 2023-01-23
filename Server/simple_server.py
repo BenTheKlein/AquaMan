@@ -104,7 +104,7 @@ class myHandler(BaseHTTPRequestHandler):
 			print(ss[0])
 			mappy[ss[0]] = ss[1]
 
-		mappy['current_time'] = time.strftime("%x, %X, %y, %Y")
+		#mappy['current_time'] = time.strftime("%x, %X, %y, %Y")
 
 		return mappy
 		
