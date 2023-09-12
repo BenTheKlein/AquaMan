@@ -59,6 +59,8 @@ def notify_email(mappy):
 
 	return
 
+def notify_telegram(mappy):
+	pass
 
 class myHandler(BaseHTTPRequestHandler):
 	
@@ -132,7 +134,7 @@ class myHandler(BaseHTTPRequestHandler):
 			print('TEMP:::::: Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
 			if last_post['a'] != postvars['a']:
 				print('Status changed! was ' + last_post['a'] + ' And now: ' + postvars['a'])
-				notify_email(postvars)
+				#notify_email(postvars)
 
 		except Exception as e:
 			print(e)
